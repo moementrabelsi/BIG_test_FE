@@ -6,13 +6,13 @@ import authModule from './modules/auth';
 
 export default createStore({
   modules: {
-    posts: postsModule, // Register the 'posts' module with the 'posts' namespace
+    posts: postsModule, 
     users: usersModule,
     auth: authModule
     
   },
   state: {
-    menu: false, // Initialize the menu state
+    menu: false, 
   },
   mutations: {
     toggleMenu(state) {

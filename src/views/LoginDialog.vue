@@ -3,7 +3,6 @@
     <v-card>
       <v-card-title class="headline">Login</v-card-title>
       <v-card-text>
-        <!-- Your login form here -->
         <v-form ref="loginForm">
           <v-text-field v-model="loginData.username" label="Username"></v-text-field>
           <v-text-field v-model="loginData.password" label="Password" type="password"></v-text-field>
@@ -65,5 +64,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add your custom styles here */
+
 </style>

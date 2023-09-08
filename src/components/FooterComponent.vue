@@ -1,6 +1,5 @@
 <template>
   <v-footer app>
-    <!-- Footer content -->
     <v-row justify="center" align="center">
       <v-col cols="12" sm="6" md="3">
         <div class="footer-links">
@@ -46,7 +45,6 @@ export default {
 </script>
 
 <style scoped>
-/* Add your custom styling here */
 
 .footer-links a,
 .social-links a {

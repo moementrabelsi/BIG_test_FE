@@ -1,10 +1,9 @@
 <template>
   <v-container>
-    <!-- Header -->
     <v-row class="header" justify="center">
       <v-col cols="12">
         <h2>Users</h2>
-        <hr class="solid-divider"> <!-- Add a class for styling -->
+        <hr class="solid-divider"> 
       </v-col>
     </v-row>
 
@@ -35,7 +34,6 @@
       </table>
     </div>
 
-    <!-- Pagination -->
     <v-pagination
       v-model="currentPage"
       :length="totalPages"
@@ -52,13 +50,12 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 3, // Number of items per page
+      perPage: 3, 
     };
   },
   computed: {
     ...mapGetters('users', ['allUsers']),
     displayedUsers() {
-      // Calculate the range of users to display based on currentPage and perPage
       const startIndex = (this.currentPage - 1) * this.perPage;
       const endIndex = startIndex + this.perPage;
       return this.allUsers.slice(startIndex, endIndex);
@@ -70,32 +67,28 @@ export default {
   methods: {
     ...mapActions('users', ['fetchUsers']),
     loadPage() {
-      // Simulate data loading for the new page
-      // Replace this with your actual data fetching logic
       this.loadDataForPage(this.currentPage);
     },
     async loadDataForPage(page) {
       try {
-        // Simulate data loading using a timeout (replace with actual data fetching logic)
         setTimeout(() => {
-          // Create some example data for the current page
+          
           const data = generateExampleData(page, this.perPage);
           
-          // Update the store with the new data (replace with your actual store update logic)
+          
           this.$store.commit('users/setUsers', data);
-        }, 1000); // Simulate a delay for data loading (remove in production)
+        }, 1000);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     },
   },
   created() {
-    // Fetch users when the component is created
     this.fetchUsers();
   },
 };
 
-// Helper function to generate example data (replace with actual data source)
+
 function generateExampleData(page, perPage) {
   const data = [];
   const startIndex = (page - 1) * perPage;
@@ -134,7 +127,7 @@ function generateExampleData(page, perPage) {
 }
 
 .table-container {
-  overflow-x: auto; /* Add horizontal scroll on small screens */
+  overflow-x: auto; 
 }
 
 table {

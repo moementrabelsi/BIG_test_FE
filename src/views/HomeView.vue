@@ -60,10 +60,10 @@ export default defineComponent({
 }
 .carousel-text {
   position: absolute;
-  top: 50%; /* Vertically center the text */
-  left: 50%; /* Horizontally center the text */
-  transform: translate(-50%, -50%); /* Center both horizontally and vertically */
-  font-size: 24px; /* Adjust the font size as needed */
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  font-size: 24px; 
   color: white;
   background: rgba(0, 0, 0, 0.5);
   padding: 10px;

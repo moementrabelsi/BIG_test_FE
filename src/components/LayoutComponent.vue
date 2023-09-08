@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <NavBar /> <!-- Include the NavBar component -->
+    <NavBar /> 
     <DrawerComponent/>
     <v-main>
-      <slot></slot> <!-- This slot will render the content of the pages -->
+      <slot></slot> 
     </v-main>
-    <FooterComponent /> <!-- Include your FooterComponent or any other components here -->
+    <FooterComponent /> 
   </v-app>
 </template>
 

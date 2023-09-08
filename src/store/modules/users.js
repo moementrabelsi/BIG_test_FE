@@ -13,9 +13,9 @@ const mutations = {
 const actions = {
   async fetchUsers({ commit }) {
     try {
-      console.log('Fetching users...'); // Add this line for debugging
+      console.log('Fetching users...'); 
       const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-      console.log('Received response:', response.data); // Add this line for debugging
+      console.log('Received response:', response.data); 
       commit('SET_USERS', response.data);
     } catch (error) {
       console.error('Error fetching users:', error);

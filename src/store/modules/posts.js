@@ -16,11 +16,11 @@ const mutations = {
 const actions = {
   async fetchPosts({ commit }) {
     try {
-      console.log('Fetching posts...'); // Add this line for debugging
+      console.log('Fetching posts...'); 
       const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      console.log('Received response:', response.data); // Add this line for debugging
+      console.log('Received response:', response.data); 
 
-      // Fetch user information for each post
+      
       const postsWithUsernames = await Promise.all(
         response.data.map(async (post) => {
           const userResponse = await axios.get(
@@ -40,19 +40,18 @@ const actions = {
   },
   async createPost({ commit }, postData) {
     try {
-      // Make an HTTP POST request to create the post
+      
       const response = await axios.post('https://jsonplaceholder.typicode.com/posts', postData);
 
-      // Assuming the response contains the newly created post
+      
       const newPost = response.data;
 
-      // Commit the mutation to add the new post to the state
       commit('ADD_POST', newPost);
 
-      return newPost; // You can return the newly created post if needed
+      return newPost; 
     } catch (error) {
       console.error('Error creating post:', error);
-      throw error; // Propagate the error to the caller
+      throw error; 
     }
   },
 };

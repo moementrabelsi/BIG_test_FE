@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters,mapActions } from 'vuex'; // Import mapGetters from Vuex
+import { mapGetters,mapActions } from 'vuex'; 
 
 export default {
     data() {
@@ -30,7 +30,6 @@ export default {
         }
     },
     computed: {
-      // Use computed properties to access isAuthenticated from Vuex store
       ...mapGetters(['menu']),
     },
     methods: {
@@ -44,7 +43,7 @@ export default {
       },
     },
     mounted() {
-      this.isMobile = window.innerWidth <= 768; // Set the mobile view breakpoint
+      this.isMobile = window.innerWidth <= 768; 
       window.addEventListener("resize", () => {
         this.isMobile = window.innerWidth <= 768;
       });
