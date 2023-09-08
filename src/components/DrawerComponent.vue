@@ -25,7 +25,7 @@ export default {
             menuItems: [
                 { title: "Home", route: "/"},
                 { title: "Users", route: "/users"},
-                { title: "Blog", route: "/blog"},
+                { title: "Posts", route: "/posts"},
             ],
         }
     },
