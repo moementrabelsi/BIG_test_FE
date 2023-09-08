@@ -55,6 +55,10 @@ export default {
         }
         else this.error = res;
       }
+      this.loginData = {
+        username: '',
+        password: ''
+      }
     },
   },
 };
