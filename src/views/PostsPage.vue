@@ -12,7 +12,7 @@
     <v-row>
       <!-- Left Column -->
       <v-col cols="12" md="8" lg="8">
-        <div >
+        <div v-if="isAuth">
           <v-card outlined class="mb-4 card">
             <h2>Add a New Post</h2>
             <v-form @submit.prevent="addPost">
@@ -39,7 +39,7 @@
         <h5>Title description, Dec 7, 2017</h5>
         <p>{{ post.body }}</p>
         <h4>Created by: {{ post.username }}</h4> <!-- Display the username here -->
-        <div class="options" >
+        <div class="options" v-if="isAuth">
           <!-- Edit and Delete buttons for each post -->
           <v-btn @click="editPost(post)">Edit</v-btn>
           <v-btn @click="deletePost(post)">Delete</v-btn>
@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -109,6 +109,7 @@ export default {
     ...mapState({
       allPosts: (state) => state.posts.posts,
     }),
+    ...mapGetters('auth', ['isAuth']),
     paginatedPosts() {
       const startIndex = (this.currentPage - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;

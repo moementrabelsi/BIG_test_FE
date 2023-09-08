@@ -13,13 +13,16 @@
     <v-spacer></v-spacer>
     <!-- Conditionally show "Login" or "Logout" button -->
     <v-btn @click="handleAuthClick" text>
-      Login
+      {{ isAuth ? "Logout" : "Login" }}
     </v-btn>
   </v-app-bar>
 
+  <!-- Include the LoginDialog component here -->
+  <login-dialog ref="loginDialog"></login-dialog>
 </template>
 
 <script>
+import LoginDialog from '@/views/LoginDialog.vue';
 import { mapGetters,mapActions } from 'vuex'; // Import mapGetters from Vuex
 
 export default {
@@ -32,6 +35,7 @@ export default {
         { title: "Home", route: "/"},
         { title: "Users", route: "/users"},
         { title: "Posts", route: "/posts"},
+        { title: "Contact", route: "/contact"},
       ],
     };
   },
@@ -57,13 +61,28 @@ export default {
       // Open the login dialog when the button is clicked
       this.$refs.loginDialog.open();
     },
+
+    // Handle the login/logout action when the button is clicked
+    handleAuthClick() {
+      if (this.isAuth) {
+        // Implement your logout logic here
+        // For demonstration purposes, dispatch a logout action
+        this.logout()
+      } else {
+        // Open the login dialog when not authenticated
+        this.$refs.loginDialog.open();
+      }
+    },
   },
   mounted() {
     this.isMobile = window.innerWidth <= 768; // Set the mobile view breakpoint
     window.addEventListener("resize", () => {
       this.isMobile = window.innerWidth <= 768;
     });
-  }
+  },
+  components: {
+    'login-dialog': LoginDialog,
+  },
 };
 </script>
 
