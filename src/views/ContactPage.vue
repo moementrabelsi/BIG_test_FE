@@ -40,6 +40,12 @@
       
     </div>
     <v-row class="contacts" justify="center">
+      <div>
+            <h3>Contact Information</h3>
+            <p><strong>Address:</strong> 1234 Elm Street, City, Country</p>
+            <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+            <p><strong>Email:</strong> info@example.com</p>
+          </div>
       <v-col cols="12">
         <p>You can join us on</p>
         <div class="social-links">

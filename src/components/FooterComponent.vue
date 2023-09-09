@@ -4,8 +4,8 @@
       <v-col cols="12" sm="6" md="3">
         <div class="footer-links">
           <router-link to="/">Home</router-link>
-          <router-link to="/about">Users</router-link>
-          <router-link to="/contact">Posts</router-link>
+          <router-link to="/users">Users</router-link>
+          <router-link to="/posts">Posts</router-link>
           <router-link to="/contact">Contact</router-link>
         </div>
       </v-col>
