@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
 
 const state = {
@@ -11,16 +12,28 @@ const mutations = {
   ADD_POST(state, post) {
     state.posts.push(post);
   },
+  UPDATE_POST(state, updatedPost) {
+    const index = state.posts.findIndex(post => post.id === updatedPost.id);
+    if (index !== -1) {
+      state.posts.splice(index, 1, updatedPost);
+    }
+  },
+  DELETE_POST(state, postId) {
+    const index = state.posts.findIndex(post => post.id === postId);
+    if (index !== -1) {
+      state.posts.splice(index, 1);
+    }
+  },
 };
+
 
 const actions = {
   async fetchPosts({ commit }) {
     try {
-      console.log('Fetching posts...'); // Add this line for debugging
+      console.log('Fetching posts...'); 
       const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      console.log('Received response:', response.data); // Add this line for debugging
+      console.log('Received response:', response.data); 
 
-      // Fetch user information for each post
       const postsWithUsernames = await Promise.all(
         response.data.map(async (post) => {
           const userResponse = await axios.get(
@@ -40,25 +53,68 @@ const actions = {
   },
   async createPost({ commit }, postData) {
     try {
-      // Make an HTTP POST request to create the post
       const response = await axios.post('https://jsonplaceholder.typicode.com/posts', postData);
 
-      // Assuming the response contains the newly created post
       const newPost = response.data;
 
-      // Commit the mutation to add the new post to the state
       commit('ADD_POST', newPost);
 
-      return newPost; // You can return the newly created post if needed
+      return newPost; 
     } catch (error) {
       console.error('Error creating post:', error);
-      throw error; // Propagate the error to the caller
+      throw error; 
+    }
+  },
+  async updatePost({ commit }, updatedPostData) {
+    try {
+      console.log('updating post ID...', updatedPostData.id); 
+
+      const response = await axios.put(
+        `https://jsonplaceholder.typicode.com/posts/${updatedPostData.id}`,
+        updatedPostData
+      );
+
+      const updatedPost = response.data;
+
+      commit('UPDATE_POST', updatedPost);
+
+      return updatedPost; 
+    } catch (error) {
+      console.error('Error updating post:', error);
+      throw error; 
+    }
+  },
+  async fetchOnePost({commit}, postId ) {
+    try {
+      console.log('Fetching post by ID...', postId); 
+      const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+
+      const fetchedPost = response.data;
+
+      return fetchedPost; 
+    } catch (error) {
+      console.error('Error fetching post by ID:', error);
+      throw error; 
+    }
+  },
+  async deletePost({ commit }, postId) {
+    try {
+      console.log('deleting post by ID...', postId); 
+      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${postId}`);
+
+      commit('DELETE_POST', postId);
+    } catch (error) {
+      console.error('Error deleting post:', error);
+      throw error; 
     }
   },
 };
 
 const getters = {
   allPosts: (state) => state.posts,
+  getPostById: (state) => (postId) => {
+    return state.posts.find(post => post.id === postId);
+  },
 };
 
 export default {

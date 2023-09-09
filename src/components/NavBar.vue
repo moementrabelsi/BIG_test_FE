@@ -3,33 +3,29 @@
     <v-app-bar-nav-icon v-if="isMobile" @click="toggleMenu()"></v-app-bar-nav-icon>
     <v-toolbar-title class="ml-4">Blog Web App</v-toolbar-title>
 
-    <!-- Display tabs on larger screens -->
     <v-tabs v-if="!isMobile" grow v-model="activeTab">
       <v-tab v-for="(item, index) in menuItems" :key="index" @click="navigate(item.route)">
         <span class="hidden-sm-and-down">{{ item.title }}</span>
       </v-tab>
     </v-tabs>
-    <!-- Display menu on smaller screens -->
     <v-spacer></v-spacer>
-    <!-- Conditionally show "Login" or "Logout" button -->
     <v-btn @click="handleAuthClick" text>
       {{ isAuth ? "Logout" : "Login" }}
     </v-btn>
   </v-app-bar>
 
-  <!-- Include the LoginDialog component here -->
   <login-dialog ref="loginDialog"></login-dialog>
 </template>
 
 <script>
 import LoginDialog from '@/views/LoginDialog.vue';
-import { mapGetters,mapActions } from 'vuex'; // Import mapGetters from Vuex
+import { mapGetters,mapActions } from 'vuex'; 
 
 export default {
   data() {
     return {
       drawer: false,
-      isMobile: true, // Detect if it's a mobile view
+      isMobile: true, 
       activeTab: null,
       menuItems: [
         { title: "Home", route: "/"},
@@ -40,14 +36,12 @@ export default {
     };
   },
   computed: {
-    // Use computed properties to access isAuthenticated from Vuex store
     ...mapGetters('auth', ['isAuth']),  
   },
   methods: {
     ...mapActions('auth',['logout']),
     ...mapActions(['toggleMobileMenu']),
     toggleMenu() {
-      // Call the 'toggleMobileMenu' action when needed
       this.toggleMobileMenu();
     },
     navigate(route) {
@@ -58,24 +52,19 @@ export default {
      this.toggleMenu()
     },
     openLoginDialog() {
-      // Open the login dialog when the button is clicked
       this.$refs.loginDialog.open();
     },
 
-    // Handle the login/logout action when the button is clicked
     handleAuthClick() {
       if (this.isAuth) {
-        // Implement your logout logic here
-        // For demonstration purposes, dispatch a logout action
         this.logout()
       } else {
-        // Open the login dialog when not authenticated
         this.$refs.loginDialog.open();
       }
     },
   },
   mounted() {
-    this.isMobile = window.innerWidth <= 768; // Set the mobile view breakpoint
+    this.isMobile = window.innerWidth <= 768; 
     window.addEventListener("resize", () => {
       this.isMobile = window.innerWidth <= 768;
     });
@@ -87,5 +76,4 @@ export default {
 </script>
 
 <style scoped>
-/* Customize the color scheme and design as needed */
 </style>

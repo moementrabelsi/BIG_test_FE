@@ -33,19 +33,17 @@
       <!-- Blog Posts -->
   <div class="row">
     <div class="leftcolumn">
-      <!-- Blog Post 1 -->
       <v-card outlined class="mb-4 card" v-for="(post) in paginatedPosts" :key="post.id">
         <h2>{{ post.title }}</h2>
         <h5>Title description, Dec 7, 2017</h5>
         <p>{{ post.body }}</p>
-        <h4>Created by: {{ post.username }}</h4> <!-- Display the username here -->
+        <h4>Created by: {{ post.username }}</h4>
         <div class="options" v-if="isAuth">
-          <!-- Edit and Delete buttons for each post -->
+          <!-- Edit button now redirects to the UpdatePage with the post's ID -->
           <v-btn @click="editPost(post)">Edit</v-btn>
-          <v-btn @click="deletePost(post)">Delete</v-btn>
+          <v-btn @click="submitDeletePost(post.id)">Delete</v-btn>
         </div>
       </v-card>
-      <!-- Add more blog posts as needed -->
     </div>
   </div>
       </v-col>
@@ -88,10 +86,12 @@
         ></v-pagination>
       </v-col>
     </v-row>
+    <update-post ref="updatePost"/>
   </v-container>
 </template>
 
 <script>
+import UpdatePost from './UpdatePost.vue';
 import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -102,6 +102,7 @@ export default {
       newPost: {
         title: '',
         body: '',
+        userId: 1,
       },
     };
   },
@@ -124,6 +125,11 @@ export default {
     changePage(page) {
       this.currentPage = page;
     },
+    editPost(post) {
+    // Redirect to the UpdatePage with the post's ID as a route parameter
+    this.$refs.updatePost.open(post);
+
+  },
     goToAddPostPage() {
       // You can use Vue Router to navigate to the add post page.
       // For example:
@@ -143,23 +149,19 @@ export default {
       this.newPost.title = '';
       this.newPost.body = '';
     },
-    editPost(post) {
-      // You can navigate to the edit post page with the selected post's ID as a route parameter.
-      // For example:
-      this.$router.push(`/edit-post/${post.id}`);
-    },
 
-    deletePost(post) {
+    submitDeletePost(postId) {
+      console.log(postId);
       // You can implement a confirmation dialog before deleting the post.
-      const confirmDelete = window.confirm('Are you sure you want to delete this post?');
-      if (confirmDelete) {
-        // Dispatch the deletePost action to delete the post by ID
-        this.deletePost(post.id);
-      }
+      this.deletePost(postId);
     },
   },
   created() {
     this.fetchPosts();
+  },
+
+  components: {
+    'update-post': UpdatePost,
   },
 };
 </script>
