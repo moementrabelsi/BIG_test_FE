@@ -3,7 +3,7 @@
     <v-carousel cycle hide-delimiters class="carousel">
       <v-carousel-item v-for="(item, index) in carouselItems" :key="index">
         <v-img :src="item.src" aspect-ratio="2.5" cover class="fill-height">
-          <div class="carousel-text">Welcome To the BOG Website</div>
+          <div class="carousel-text">Welcome To the Website</div>
         </v-img>
       </v-carousel-item>
     </v-carousel>
