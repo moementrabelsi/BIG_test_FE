@@ -34,10 +34,11 @@
         <h2>{{ post.title }}</h2>
         <h5>Title description, Dec 7, 2017</h5>
         <p>{{ post.body }}</p>
-        <h4>Created by: {{ post.username }}</h4>
+        <h4>Written by: {{ post.username }}</h4>
         <div class="options" v-if="isAuth">
+          <!-- Edit button now redirects to the UpdatePage with the post's ID -->
           <v-btn @click="editPost(post)">Edit</v-btn>
-          <v-btn @click="deletePost(post)">Delete</v-btn>
+          <v-btn @click="submitDeletePost(post.id)">Delete</v-btn>
         </div>
       </v-card>
     </div>
@@ -77,10 +78,12 @@
         ></v-pagination>
       </v-col>
     </v-row>
+    <update-post ref="updatePost"/>
   </v-container>
 </template>
 
 <script>
+import UpdatePost from './UpdatePost.vue';
 import { mapState, mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -91,13 +94,7 @@ export default {
       newPost: {
         title: '',
         body: '',
-        
-      },
-      selectedPost: { // Replace with actual post data
-        id: 1,
-        title: 'Sample Post Title',
-        username: 'John Doe',
-        body: 'This is the post content...',
+        userId: 1,
       },
     };
   },
@@ -120,6 +117,11 @@ export default {
     changePage(page) {
       this.currentPage = page;
     },
+    editPost(post) {
+    // Redirect to the UpdatePage with the post's ID as a route parameter
+    this.$refs.updatePost.open(post);
+
+  },
     goToAddPostPage() {
       
       this.$router.push('/posts'); 
@@ -136,19 +138,19 @@ export default {
       this.newPost.title = '';
       this.newPost.body = '';
     },
-    editPost(post) {
-      this.$router.push(`/edit-post/${post.id}`);
-    },
 
-    deletePost(post) {
-      const confirmDelete = window.confirm('Are you sure you want to delete this post?');
-      if (confirmDelete) {
-        this.deletePost(post.id);
-      }
+    submitDeletePost(postId) {
+      console.log(postId);
+      // You can implement a confirmation dialog before deleting the post.
+      this.deletePost(postId);
     },
   },
   created() {
     this.fetchPosts();
+  },
+
+  components: {
+    'update-post': UpdatePost,
   },
 };
 </script>
