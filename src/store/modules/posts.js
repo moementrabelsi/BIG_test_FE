@@ -88,8 +88,8 @@ const actions = {
     try {
       console.log('Fetching post by ID...', postId); 
       const response = await axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
-
-      const fetchedPost = response.data;
+      const userResponse = await axios.get(`https://jsonplaceholder.typicode.com/users/${response.data.userId}`);
+      const fetchedPost = {...response.data, user:{...userResponse.data}};
 
       return fetchedPost; 
     } catch (error) {

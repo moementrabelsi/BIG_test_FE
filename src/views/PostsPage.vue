@@ -37,7 +37,7 @@
         <h2>{{ post.title }}</h2>
         <h5>Title description, Dec 7, 2017</h5>
         <p>{{ post.body }}</p>
-        <h4>Created by: {{ post.username }}</h4>
+        <h4>Written by: {{ post.username }}</h4>
         <div class="options" v-if="isAuth">
           <!-- Edit button now redirects to the UpdatePage with the post's ID -->
           <v-btn @click="editPost(post)">Edit</v-btn>
