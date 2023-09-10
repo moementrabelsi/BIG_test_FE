@@ -49,11 +49,11 @@
       <v-col cols="12">
         <p>You can join us on</p>
         <div class="social-links">
-          <a href="https://www.facebook.com/moemeeeen" target="_blank" class="social-link">
+          <a href="https://www.facebook.com/" target="_blank" class="social-link">
             <v-icon class="fa"><i class="fab fa-facebook"></i></v-icon>
             Facebook
           </a>
-          <a href="https://www.instagram.com/moemeeen/" target="_blank" class="social-link">
+          <a href="https://www.instagram.com/" target="_blank" class="social-link">
             <v-icon class="fa"><i class="fab fa-instagram"></i></v-icon>
             Instagram
           </a>

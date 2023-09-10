@@ -1,13 +1,24 @@
 <template>
   <v-dialog v-model="dialog" max-width="500">
     <v-card>
-      <v-card-title class="headline">Login</v-card-title>
+      <v-card-title class="headline" style="text-align: center;">Login</v-card-title>
+      <span class="error-text" v-if="error">{{ error }} please try to login again</span>
       <v-card-text>
         <v-form ref="loginForm">
-          <v-text-field v-model="loginData.username" label="Username"></v-text-field>
-          <v-text-field v-model="loginData.password" label="Password" type="password"></v-text-field>
+          <v-text-field
+            v-model="loginData.email"
+            label="Email"
+            required
+            :rules="[v => !!v || 'Email is required', v => /.+@.+\..+/.test(v) || 'Email must be valid']"
+          ></v-text-field>
+          <v-text-field
+            v-model="loginData.password"
+            label="Password"
+            type="password"
+            required
+            :rules="[v => !!v || 'Password is required']"
+          ></v-text-field>
         </v-form>
-        <span>{{error}}</span>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -25,17 +36,17 @@ export default {
   data() {
     return {
       dialog: false,
-      error : '',
-      loginData:{
-        username: '',
+      error: '',
+      loginData: {
+        email: '',
         password: '',
-      }
+      },
     };
   },
   computed: {
     ...mapState({
-      isAuth: (state) => state.auth.isAuth
-    })
+      isAuth: (state) => state.auth.isAuth,
+    }),
   },
 
   methods: {
@@ -45,18 +56,20 @@ export default {
     },
     close() {
       this.dialog = false;
+      this.error = ''; 
     },
     async signin() {
-      if(this.loginData.username != '' && this.loginData.password != ''){
-        const res = await this.login(this.loginData)
-        if(res === 'logged in'){
-          this.close()
+      if (this.$refs.loginForm.validate()) {
+        const res = await this.login(this.loginData);
+        if (res === 'logged in') {
+          this.close();
+        } else {
+          this.error = res;
         }
-        else this.error = res;
-      }
-      this.loginData = {
-        username: '',
-        password: ''
+        this.loginData = {
+          email: '',
+          password: '',
+        };
       }
     },
   },
@@ -64,5 +77,8 @@ export default {
 </script>
 
 <style scoped>
-
+.error-text {
+  text-align: center;
+  color: rgb(172, 67, 67);
+}
 </style>

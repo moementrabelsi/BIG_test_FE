@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="500">
     <v-card>
-      <v-card-title class="headline">Login</v-card-title>
+      <v-card-title class="headline" style="text-align: center;">Edit Post</v-card-title>
       <v-card-text>
         <v-form @submit.prevent="submitUpdatePost">
       <v-text-field v-model="updatedPost.title" label="Title" required></v-text-field>

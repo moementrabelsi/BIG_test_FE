@@ -11,10 +11,10 @@
       </v-col>
       <v-col cols="12" sm="6" md="3">
   <div class="social-links">
-    <a href="https://www.facebook.com/moemeeeen" target="_blank">
+    <a href="https://www.facebook.com/" target="_blank">
       <v-icon class="fa"><i class="fab fa-facebook"></i></v-icon>
     </a>
-    <a href="https://www.instagram.com/moemeeen/" target="_blank">
+    <a href="https://www.instagram.com/" target="_blank">
       <v-icon class="fa"><i class="fab fa-instagram"></i></v-icon>
     </a>
     <a href="https://github.com/moementrabelsi" target="_blank"> 

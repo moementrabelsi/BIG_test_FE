@@ -7,7 +7,6 @@
       </v-col>
     </v-row>
 
-    
     <v-row>
       <v-col cols="12" md="8" lg="8">
         <div v-if="isAuth">
@@ -28,25 +27,29 @@
             </v-form>
           </v-card>
         </div>
-  <div class="row">
-    <div class="leftcolumn">
-      <v-card outlined class="mb-4 card" v-for="(post) in paginatedPosts" :key="post.id">
-        <h2>{{ post.title }}</h2>
-        <h5>Title description, Dec 7, 2017</h5>
-        <p>{{ post.body }}</p>
-        <h4>Written by: {{ post.username }}</h4>
-        <div class="options" v-if="isAuth">
-          <!-- Edit button now redirects to the UpdatePage with the post's ID -->
-          <v-btn @click="editPost(post)">Edit</v-btn>
-          <v-btn @click="submitDeletePost(post.id)">Delete</v-btn>
+        <div class="row">
+          <div class="leftcolumn">
+            <v-card outlined class="mb-4 card" v-for="(post) in paginatedPosts" :key="post.id">
+              <router-link :to="'/posts/' + post.id" class="post-link"><h2>{{ post.title }}</h2></router-link>
+              <h5>Title description, Dec 7, 2017</h5>
+              <p>{{ post.body }}</p>
+              <h4>Written by: {{ post.username }}</h4>
+              <div class="options" v-if="isAuth">
+                <v-row justify="center">
+                  <v-col cols="auto">
+                    <v-btn @click="editPost(post)">Edit</v-btn>
+                  </v-col>
+                  <v-col cols="auto">
+                    <v-btn @click="submitDeletePost(post.id)">Delete</v-btn>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-card>
+          </div>
         </div>
-      </v-card>
-    </div>
-  </div>
       </v-col>
 
       <v-col cols="12" md="4" lg="4">
-       
         <v-card outlined class="mb-4 card">
           <h3>Popular Post</h3>
           <v-img src="https://images.unsplash.com/photo-1693897454902-a621f16c6c30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" height="200" class="fakeimg mb-2" cover></v-img>
@@ -59,7 +62,6 @@
           <h3>Popular Post</h3>
           <v-img src="https://images.unsplash.com/photo-1693897454902-a621f16c6c30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" height="200" class="fakeimg mb-2" cover></v-img>
         </v-card>
-
         <v-card outlined class="card">
           <h3>Follow Me</h3>
           <p>Some text..</p>
@@ -118,30 +120,21 @@ export default {
       this.currentPage = page;
     },
     editPost(post) {
-    // Redirect to the UpdatePage with the post's ID as a route parameter
-    this.$refs.updatePost.open(post);
-
-  },
+      this.$refs.updatePost.open(post);
+    },
     goToAddPostPage() {
-      
       this.$router.push('/posts'); 
     },
     addPost() {
-      
       if (!this.newPost.title || !this.newPost.body) {
-        
         return;
       }
-
       this.createPost(this.newPost);
-
       this.newPost.title = '';
       this.newPost.body = '';
     },
-
     submitDeletePost(postId) {
       console.log(postId);
-      // You can implement a confirmation dialog before deleting the post.
       this.deletePost(postId);
     },
   },
@@ -190,5 +183,19 @@ export default {
   border-top: 1px solid #000; 
   width: 30%; 
   margin: 16px auto; 
+}
+
+.post-link {
+  text-decoration: none; 
+  color: inherit; 
+  cursor: pointer; 
+}
+
+.options {
+  text-align: center;
+}
+
+.options v-btn {
+  margin: 5px;
 }
 </style>

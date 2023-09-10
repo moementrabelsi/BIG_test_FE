@@ -15,7 +15,7 @@ const mutations = {
 const actions = {
     async login({commit}, loginData){
         try {
-            if(loginData.username === 'admin'){
+            if(loginData.email === 'user@example.com'){
                 if(loginData.password === 'admin'){
                     localStorage.setItem('auth', true);
                     commit('SET_LOGGED_IN')
