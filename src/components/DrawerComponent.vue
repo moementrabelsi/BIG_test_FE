@@ -26,6 +26,7 @@ export default {
                 { title: "Home", route: "/"},
                 { title: "Users", route: "/users"},
                 { title: "Posts", route: "/posts"},
+                { title: "Contacts", route: "/contact"}
             ],
         }
     },
